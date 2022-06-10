@@ -1,0 +1,2 @@
+sudo chmod 666 /dev/ttyUSB0
+pio run --target upload --upload-port /dev/ttyUSB0 --environment nodemcu-32s

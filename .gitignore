@@ -1,0 +1,5 @@
+.vscode
+/obj
+/bin
+.pio
+#sdkconfig.nodemcu-32s
