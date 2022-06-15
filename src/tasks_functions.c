@@ -14,12 +14,12 @@ void vTaskGetTemperature(){
 
 void vTaskPrintTemperature(){
     //bool a,b,c,d;
-    unsigned short int temp = 0;
+    //unsigned short int temp = 0;
 
     // Main loop
     while(true) {
-        xQueueReceive(xTempQueue, &temp, portMAX_DELAY);
-        printf("temp = %d", temp);
+        //xQueueReceive(xTempQueue, &temp, portMAX_DELAY);
+        //printf("temp = %d", temp);
         gpio_set_level(LED, 0);
         gpio_set_level(18, 0);
         gpio_set_level(21, 0);
