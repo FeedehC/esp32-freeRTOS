@@ -1,10 +1,4 @@
-#include <driver/gpio.h>
-// Include FreeRTOS for delay
-#include <freertos/FreeRTOS.h>
-#include <freertos/task.h>
-
-#define LED 2 // LED connected to GPIO2
-#define DELAY 1000 // milliseconds to delay blink
+#include "common.h"
 
 int app_main() {
     // Configure pin
@@ -16,19 +10,16 @@ int app_main() {
     io_conf.pull_up_en = GPIO_PULLUP_DISABLE;
     gpio_config(&io_conf);
 
-    // Main loop
-    while(true) {
-        gpio_set_level(LED, 0);
-        gpio_set_level(18, 0);
-        gpio_set_level(21, 0);
-        gpio_set_level(22, 0);
-        gpio_set_level(23, 0);
-        vTaskDelay(pdMS_TO_TICKS(DELAY));
-        gpio_set_level(LED, 1);
-        gpio_set_level(18, 1);
-        gpio_set_level(21, 1);
-        gpio_set_level(22, 1);
-        gpio_set_level(23, 1);
-        vTaskDelay(pdMS_TO_TICKS(DELAY));
+    xTempQueue = xQueueCreate((UBaseType_t) QUEUE_SIZE, sizeof(uint8_t));
+    if( xTempQueue == NULL )
+    {
+        // Queue was not created and must not be used.
+        return 0;
     }
+
+    xTaskCreate(vTaskGetTemperature,(const char *)"Sensor", (unsigned short) STACK_SIZE, NULL, 4, NULL); //Priority 1
+    xTaskCreate(vTaskPrintTemperature,(const char *)"Print", (unsigned short) STACK_SIZE, NULL, 4, NULL); //Priority 1
+    vTaskStartScheduler();
+
+    return 0;
 }

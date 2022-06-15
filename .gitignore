@@ -1,5 +1,6 @@
 .vscode
 /obj
 /bin
+/ignore
 .pio
 #sdkconfig.nodemcu-32s
