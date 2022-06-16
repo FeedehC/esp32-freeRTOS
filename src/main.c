@@ -10,47 +10,18 @@ int app_main() {
     io_conf.pull_up_en = GPIO_PULLUP_DISABLE;
     gpio_config(&io_conf);
 
-    /*xTempQueue = xQueueCreate((UBaseType_t) QUEUE_SIZE, sizeof(uint8_t));
+    xTempQueue = xQueueCreate((UBaseType_t) QUEUE_SIZE, sizeof(uint8_t));
     if( xTempQueue == NULL )
     {
         // Queue was not created and must not be used.
         return 0;
-    }*/
-
-    //xTaskCreate(vTaskGetTemperature,(const char *)"Sensor", (unsigned short) STACK_SIZE, NULL, 1, NULL); //Priority 1
-    //xTaskCreate(vTaskPrintTemperature,(const char *)"Print", (unsigned short) STACK_SIZE, NULL, 1, NULL); //Priority 1
-    //vTaskStartScheduler();
-
-    bool a,b,c,d;
-    unsigned short int temp = 0; 
-
-    // Main loop
-    while(true) {
-        //xQueueReceive(xTempQueue, &temp, portMAX_DELAY);
-        //printf("temp = %d", temp);
-        temp = (rand()%MAX_TEMPERATURE);
-        //0b00001000;
-        a = (temp >= 8);
-        temp = temp % 8;
-        b = (temp >= 4);
-        temp = temp % 4;
-        c = (temp >= 2);
-        temp = temp % 2;
-        d = (temp >= 1);
-        temp = temp % 1;
-        gpio_set_level(LED, 0);
-        gpio_set_level(18, 0);
-        gpio_set_level(21, 0);
-        gpio_set_level(22, 0);
-        gpio_set_level(23, 0);
-        vTaskDelay(pdMS_TO_TICKS(DELAY));
-        gpio_set_level(LED, 1);
-        gpio_set_level(18, a);
-        gpio_set_level(21, b);
-        gpio_set_level(22, c);
-        gpio_set_level(23, d);
-        vTaskDelay(pdMS_TO_TICKS(DELAY));
     }
+
+    xTaskCreate(vTaskGetTemperature,(const char *)"Sensor", (unsigned short) STACK_SIZE, NULL, 1, NULL); //Priority 1
+    xTaskCreate(vTaskDisplayTemperature,(const char *)"Display", (unsigned short) STACK_SIZE, NULL, 1, NULL); //Priority 1
+    
+    
+    //vTaskStartScheduler(); //NO FUNCIONA
 
     return 0;
 }

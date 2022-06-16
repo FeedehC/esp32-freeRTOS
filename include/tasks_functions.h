@@ -1,2 +1,2 @@
 void vTaskGetTemperature();
-void vTaskPrintTemperature();
+void vTaskDisplayTemperature();
