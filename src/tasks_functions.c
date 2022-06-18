@@ -8,7 +8,7 @@ void vTaskGetTemperature(){
     {
         temperature = (uint8_t) (rand()%MAX_TEMPERATURE); //para obtener valores entre 0 y MAX_TEMPERATURE
 		xQueueSend(xTempQueue, &temperature, portMAX_DELAY);	
-		vTaskDelay(pdMS_TO_TICKS(DELAY_TEMPERATURE));
+		vTaskDelay(pdMS_TO_TICKS((DELAY_TEMPERATURE / N)));
     }    
 }
 
@@ -18,7 +18,7 @@ void vTaskDisplayTemperature(){
 
     // Main loop
     while(true) {
-        xQueueReceive(xTempQueue, &temp, portMAX_DELAY);
+        xQueueReceive(xAveragedQueue, &temp, portMAX_DELAY);
         //printf("temp = %d", temp);
         //temp = (rand()%MAX_TEMPERATURE);
         //0b00001000;
@@ -43,4 +43,19 @@ void vTaskDisplayTemperature(){
         gpio_set_level(23, d);
         vTaskDelay(pdMS_TO_TICKS(DELAY));
     }
+}
+
+void vTaskSampleAverage(){
+    uint8_t i, aux;
+    uint16_t accum = 0;
+    while(true){
+        for(i=0; i<N; i++){
+            xQueueReceive(xTempQueue, &aux, portMAX_DELAY);
+            accum += aux;
+        }
+        aux = 0;
+        aux = accum / N; //Average
+        xQueueSend(xAveragedQueue, &aux, portMAX_DELAY);
+        vTaskDelay(pdMS_TO_TICKS((DELAY_TEMPERATURE)));
+    }    
 }
