@@ -62,16 +62,17 @@ void vTaskDisplayTemperature(){
         //0b00001000;
         display = symbols[temp];
 
-        a = (display && 0b1);
-        b = (display && 0b10);
-        c = (display && 0b100);
-        d = (display && 0b1000);
-        e = (display && 0b10000);
-        f = (display && 0b100000);
-        g = (display && 0b1000000);
+        //Bitwise AND (Masks)
+        a = (display & 0b1) == 0b1;
+        b = (display & 0b10) == 0b10;
+        c = (display & 0b100) == 0b100;
+        d = (display & 0b1000) == 0b1000;
+        e = (display & 0b10000) == 0b10000;
+        f = (display & 0b100000) == 0b100000;
+        g = (display & 0b1000000) == 0b1000000;
         
 
-        gpio_set_level(LED, 1);
+        gpio_set_level(LED, 0);
         gpio_set_level(4, 0);
         gpio_set_level(5, 0);
         gpio_set_level(18, 0);
