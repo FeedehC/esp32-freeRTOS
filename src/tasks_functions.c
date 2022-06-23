@@ -8,10 +8,12 @@ void vTaskGetTemperature(){
     {
         temperature = (uint8_t) (rand()%MAX_TEMPERATURE); //para obtener valores entre 0 y MAX_TEMPERATURE
 		xQueueSend(xTempQueue, &temperature, portMAX_DELAY);	
-		vTaskDelay(pdMS_TO_TICKS((DELAY_TEMPERATURE / N)));
+		//vTaskDelay(pdMS_TO_TICKS((DELAY_TEMPERATURE / N)));
+        vTaskDelay(pdMS_TO_TICKS(DELAY_TEMPERATURE));
     }    
 }
 
+/*
 void vTaskDisplayTemperature(){
     bool a,b,c,d;
     unsigned short int temp = 0; 
@@ -41,6 +43,51 @@ void vTaskDisplayTemperature(){
         gpio_set_level(21, b);
         gpio_set_level(22, c);
         gpio_set_level(23, d);
+        vTaskDelay(pdMS_TO_TICKS(DELAY));
+    }
+}*/
+
+void vTaskDisplayTemperature(){
+    bool a,b,c,d,e,f,g;
+    uint8_t temp = 0; 
+    uint8_t display = 0;
+
+    // Main loop
+    while(true) {    
+        //xQueueReceive(xAveragedQueue, &temp, portMAX_DELAY);
+        xQueueReceive(xTempQueue, &temp, portMAX_DELAY);
+
+        //printf("temp = %d", temp);
+        //temp = (rand()%MAX_TEMPERATURE);
+        //0b00001000;
+        display = symbols[temp];
+
+        a = (display && 0b1);
+        b = (display && 0b10);
+        c = (display && 0b100);
+        d = (display && 0b1000);
+        e = (display && 0b10000);
+        f = (display && 0b100000);
+        g = (display && 0b1000000);
+        
+
+        gpio_set_level(LED, 1);
+        gpio_set_level(4, 0);
+        gpio_set_level(5, 0);
+        gpio_set_level(18, 0);
+        gpio_set_level(19, 0);
+        gpio_set_level(21, 0);
+        gpio_set_level(22, 0);
+        gpio_set_level(23, 0);
+        vTaskDelay(pdMS_TO_TICKS(DELAY));
+        gpio_set_level(LED, 1);
+        gpio_set_level(4, a);
+        gpio_set_level(5, b);
+        gpio_set_level(18, c);
+        gpio_set_level(19, d);
+        gpio_set_level(21, e);
+        gpio_set_level(22, f);
+        gpio_set_level(23, g);
         vTaskDelay(pdMS_TO_TICKS(DELAY));
     }
 }
