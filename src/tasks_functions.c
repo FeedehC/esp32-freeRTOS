@@ -8,8 +8,8 @@ void vTaskGetTemperature(){
     {
         temperature = (uint8_t) (rand()%MAX_TEMPERATURE); //para obtener valores entre 0 y MAX_TEMPERATURE
 		xQueueSend(xTempQueue, &temperature, portMAX_DELAY);	
-		//vTaskDelay(pdMS_TO_TICKS((DELAY_TEMPERATURE / N)));
-        vTaskDelay(pdMS_TO_TICKS(DELAY_TEMPERATURE));
+		//vTaskDelay(pdMS_TO_TICKS((DELAY / N)));
+        vTaskDelay(pdMS_TO_TICKS(DELAY));
     }    
 }
 
@@ -104,6 +104,6 @@ void vTaskSampleAverage(){
         aux = 0;
         aux = accum / N; //Average
         xQueueSend(xAveragedQueue, &aux, portMAX_DELAY);
-        vTaskDelay(pdMS_TO_TICKS((DELAY_TEMPERATURE)));
+        vTaskDelay(pdMS_TO_TICKS((DELAY)));
     }    
 }

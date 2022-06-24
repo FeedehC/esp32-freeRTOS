@@ -22,7 +22,6 @@
 #define TEMP_QUEUE_SIZE 100 //Queue size of raw temperature measures
 #define AVG_QUEUE_SIZE 100 //Queue size of averaged
 #define STACK_SIZE 512 //Stack size in words, not bytes
-#define DELAY_TEMPERATURE 1000 //Milliseconds to delay get temperature measurement
 #define MAX_TEMPERATURE 15
 
 //Global Variables
