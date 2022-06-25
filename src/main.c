@@ -1,7 +1,7 @@
 #include "common.h"
 
 int app_main() {
-    // Configure pin
+    //Init Configure pins
     gpio_config_t io_conf;
     io_conf.intr_type = GPIO_PIN_INTR_DISABLE;
     io_conf.mode = GPIO_MODE_OUTPUT;
@@ -19,9 +19,8 @@ int app_main() {
     }
 
     xTaskCreate(vTaskGetTemperature,(const char *)"Sensor", (unsigned short) STACK_SIZE, NULL, 1, NULL); //Priority 1
-    //xTaskCreate(vTaskSampleAverage,(const char *)"SampleAverage", (unsigned short) STACK_SIZE, NULL, 1, NULL); //Priority 1
+    xTaskCreate(vTaskSampleAverage,(const char *)"SampleAverage", (unsigned short) STACK_SIZE, NULL, 2, NULL); //Priority 2
     xTaskCreate(vTaskDisplayTemperature,(const char *)"Display", (unsigned short) STACK_SIZE, NULL, 1, NULL); //Priority 1
-    
     
     //vTaskStartScheduler(); //NO FUNCIONA
 

@@ -21,7 +21,7 @@
 #define N 10 //Amount of samples to average
 #define TEMP_QUEUE_SIZE 100 //Queue size of raw temperature measures
 #define AVG_QUEUE_SIZE 100 //Queue size of averaged
-#define STACK_SIZE 512 //Stack size in words, not bytes
+#define STACK_SIZE 768 //Stack size in words, not bytes
 #define MAX_TEMPERATURE 15
 
 //Global Variables
