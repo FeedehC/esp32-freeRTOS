@@ -4,7 +4,7 @@ Lab 7 Sistemas Operativos 2 - Embedded Systems and Real Time Operating Systems
 ## Sistemas Operativos de Tiempo Real (RTOS)
 Los RTOS son sistemas operativos especiales que deben cumplir con requisitos temporales o **deadlines**. No es necesario que el sistema sea muy rápido, sino que la necesidad principal es la **previsibilidad**. Se emplean en tareas críticas que deben ejecutarse obligatoriamente dentro de una ventana de tiempo determinada.
 
-En este laboratorio se trabaja con **FreeRTOS**, el RTOS más popular al día de la fecha, siendo el mismo un proyecto open source y de fácil acceso. Se implementará en una **placa ESP32**, muy popular por su importante potencia computacional y su reducido precio. La version específica de la placa usada en este proyecto es NodeMCU32s, aunque es aplicable a cualquier ESP32 que cuente con los suficientes pines de propósito general que se utilizan en el proyecto.
+En este laboratorio se trabaja con **FreeRTOS**, el RTOS más popular al día de la fecha, siendo el mismo un proyecto open source y de fácil acceso. Se implementará en una **placa ESP32**, muy popular por su importante potencia computacional y su reducido precio. La version específica de la placa usada en este proyecto es **NodeMCU32s**, aunque es aplicable a cualquier ESP32 que cuente con los suficientes pines de propósito general que se utilizan en el proyecto.
 
 ## Implementación física del laboratorio
 Se investigaron las diferentes maneras de cargar programas en la placa, siendo las más sencillas usando el **IDE Arduino** o usando **[PlatformIO](https://platformio.org)**, esta última es la elegida para el laboratorio ya que simplifica mucho las tareas de subir el programa a la placa y de descargar las librerías necesarias sin demasiadas complicaciones.
@@ -84,3 +84,5 @@ Se eligieron estos valores de N porque no se dispone un **debugger** y todo el p
 - [FreeRTOS QueueCreate](https://www.freertos.org/a00116.html)
 - [FreeRTOS QueueSend](https://www.freertos.org/a00117.html)
 - [ESP32 Establish Serial Connection](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/establish-serial-connection.html)
+
+### Autor: Federico Coronati (Ketsy)
