@@ -9,6 +9,15 @@ En este laboratorio se trabaja con **FreeRTOS**, el RTOS más popular al día de
 ## Implementación física del laboratorio
 Se investigaron las diferentes maneras de cargar programas en la placa, siendo las más sencillas usando el **IDE Arduino** o usando **[PlatformIO](https://platformio.org)**, esta última es la elegida para el laboratorio ya que simplifica mucho las tareas de subir el programa a la placa y de descargar las librerías necesarias sin demasiadas complicaciones.
 
+Para subir el programa a la placa basta con presionar el botón **(✔) Upload** de PlatformIO o bien ejecutar alguno de estos comandos en la terminal del proyecto:
+```
+pio run
+```
+O, más específicamente para esta placa:
+```
+pio run --target upload --upload-port /dev/ttyUSB0 --environment nodemcu-32s
+```
+
 Algunas consideraciones importantes a la hora de cargar código en la ESP32:
 - Si se está usando Windows o una máquina virtual, es necesario presionar el botón BOOT de la placa mientras se carga el código, de otro modo el sistema avisa que la placa no está en modo de flasheo y no permite subir el código.
 - Si se está usando Linux (recomendado) no es necesario presionar el botón, pero es necesario darle permisos de escritura al puerto USB al que se conecta la placa.
