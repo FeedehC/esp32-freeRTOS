@@ -79,3 +79,8 @@ Se eligieron estos valores de N porque no se dispone un **debugger** y todo el p
 
 ## Referencias
 - [PlatformIO](https://platformio.org) 
+- [ESP32 IDF Blink LED](https://techoverflow.net/2020/04/09/platformio-esp-idf-esp32-blink-example/)
+- [FreeRTOS TaskCreate](https://www.freertos.org/a00125.html)
+- [FreeRTOS QueueCreate](https://www.freertos.org/a00116.html)
+- [FreeRTOS QueueSend](https://www.freertos.org/a00117.html)
+- [ESP32 Establish Serial Connection](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/establish-serial-connection.html)
