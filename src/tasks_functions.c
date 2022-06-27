@@ -83,3 +83,16 @@ void vTaskSampleAverage(){
         vTaskDelay(pdMS_TO_TICKS((DELAY)));
     }    
 }
+
+//Actualiza el valor de N cada 3 simbolos, en base al valor del GPIO 16
+void vTaskUpdateN(){
+    while(true){
+        if(gpio_get_level(16)){
+            N = 2;
+        }
+        else{
+            N = 10;
+        }
+        vTaskDelay(pdMS_TO_TICKS(DELAY * 3)); //Every 3 symbols update N value
+    }
+}

@@ -3,6 +3,7 @@
 
 //FreeRTOS and Platformio
 #include <driver/gpio.h>
+#include <driver/uart.h>
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
 #include <freertos/queue.h>
@@ -18,13 +19,14 @@
 //Constant Parameters
 #define LED 2 // LED connected to GPIO2
 #define DELAY 1000 // milliseconds to delay blink
-#define N 10 //Amount of samples to average
+//#define N 10 //Amount of samples to average
 #define TEMP_QUEUE_SIZE 100 //Queue size of raw temperature measures
 #define AVG_QUEUE_SIZE 100 //Queue size of averaged
 #define STACK_SIZE 768 //Stack size in words, not bytes
 #define MAX_TEMPERATURE 15
 
 //Global Variables
+uint8_t N; //Amount of samples to average
 QueueHandle_t xTempQueue;
 QueueHandle_t xAveragedQueue;
 static const int8_t symbols[] = {
