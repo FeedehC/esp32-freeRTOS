@@ -63,7 +63,7 @@ De manera anecdótica, sin intención se colocó intercambiados los cables a y b
 ### Prototipo 3: Interruptor Selector de N
 Para la tercer etapa se implementó un **filtro promediador**, que toma los ultimos N valores recibidos del sensor (valores aleatorios en la cola) y los promedia, para luego introducirlos en una nueva cola, de la cual se tomaran los valores ya promediados para ser visualizados en el display. La tarea de visualización en display funciona igual que antes solamente que toma los valores de la nueva cola.
 
-El valor de N se puede modificar usando un **interruptor** situado en la protoboard, para el cual se añadió soporte para un GPIO extra que se configura como INPUT. En caso de que el valor del interruptor sea 1, la variable N se iguala a 2, en caso contrario la variable N se iguala a 10.
+El valor de N se puede modificar usando un **interruptor** situado en la protoboard, para el cual se añadió soporte para un pin extra, el GPIO 16, que se configura como INPUT. En caso de que el valor del interruptor sea 1, la variable N se iguala a 2, en caso contrario la variable N se iguala a 10.
 
 | Interruptor | Valor de N |
 |------------|-------------|
