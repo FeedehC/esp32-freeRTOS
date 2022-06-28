@@ -4,14 +4,14 @@ Lab 7 Sistemas Operativos 2 - Embedded Systems and Real Time Operating Systems
 ## Sistemas Operativos de Tiempo Real (RTOS)
 Los RTOS son sistemas operativos especiales que deben cumplir con requisitos temporales o **deadlines**. No es necesario que el sistema sea muy rápido, sino que la necesidad principal es la **previsibilidad**. Se emplean en tareas críticas que deben ejecutarse obligatoriamente dentro de una ventana de tiempo determinada.
 
-En este laboratorio se trabaja con **FreeRTOS**, el RTOS más popular al día de la fecha, siendo el mismo un proyecto open source y de fácil acceso. Se implementará en una **placa ESP32**, muy popular por su importante potencia computacional y su reducido precio. La version específica de la placa usada en este proyecto es **NodeMCU32s**, aunque es aplicable a cualquier ESP32 que cuente con los suficientes pines de propósito general que se utilizan en el proyecto.
+En este laboratorio se trabaja con **FreeRTOS**, el RTOS más popular al día de la fecha, siendo el mismo un proyecto open source y de fácil acceso. Se implementará en una **placa ESP32**, muy popular por su importante potencia computacional y su reducido precio. La versión específica de la placa usada en este proyecto es **NodeMCU32s**, aunque es aplicable a cualquier ESP32 que cuente con los suficientes pines de propósito general (GPIO) que se utilizan en el proyecto.
 
-## Implementación física del laboratorio
+## Implementación física
 Se investigaron las diferentes maneras de cargar programas en la placa, siendo las más sencillas usando el **IDE Arduino** o usando **[PlatformIO](https://platformio.org)**, esta última es la elegida para el laboratorio ya que simplifica mucho las tareas de subir el programa a la placa y de descargar las librerías necesarias sin demasiadas complicaciones.
 
 Para subir el programa a la placa basta con presionar el botón **(✔) Upload** de PlatformIO o bien ejecutar alguno de estos comandos en la terminal del proyecto:
 ```
-pio run
+pio run --target upload
 ```
 O, más específicamente para esta placa:
 ```
@@ -30,13 +30,13 @@ Algunas consideraciones importantes a la hora de cargar código en la ESP32:
     ```
     sudo usermod -a -G dialout $USER
     ```
-    - Más info en: [Establish Serial Connection](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/establish-serial-connection.html)
+    - Más info en: [ESP32 Establish Serial Connection](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/establish-serial-connection.html)
 
 ## Desarrollo
 ### Prototipo 1: 4 LEDs
 Se comenzó con un prototipo simple y siguiendo el codigo que se encuentra en este ejemplo: [ESP32 IDF Blink LED](https://techoverflow.net/2020/04/09/platformio-esp-idf-esp32-blink-example/). A partir de allí se agregaron 4 pines de GPIO (General Purpose Input Output) para representar con 4 LEDs, de manera binaria, un numero aleatorio con valores posibles de 0 a 15. Además se añadió un resistor de pulldown de 270 Ohms y 1/2 Watt para evitar cualquier posible calentamiento.
 Luego se implementó el mismo prototipo pero usando **tareas de FreeRTOS**, estableciendo la prioridad y permitiendo que el sistema operativo la ejecute según los requerimientos temporales.
-El siguiente paso fue crear una **cola o queue** para almacenar los valores generados aleatoriamente para su posterior visualización.
+El siguiente paso fue crear una **cola o queue** para almacenar los valores generados aleatoriamente para su posterior visualización. La cola se administra de manera FIFO (First Input First Output), lo que significa que los valores que primero llegan son los primeros en retirarse de la cola. Esta forma de manejar los valores de la cola es ideal para esta aplicación.
 
 ![Prototipo1](./docs/Prototipo1.jpg)
 
@@ -79,7 +79,7 @@ El valor de N se puede modificar usando un **interruptor** situado en la protobo
 | 1         | 2           |
 | 0         | 10           |
 
-Se eligieron estos valores de N porque no se dispone un **debugger** y todo el proceso de debug se realiza a mano y con los simbolos observados en el display, por lo tanto tomar estos valores simplifica el análisis ya que si N toma valores bajos, el promedio puede estar entre 0 y 15 (F), mientras que si N toma valores como 10 o más, el promedio se acerca al valor medio (8), y en la práctica esto se cumple, mostrando valores entre 4 y 10 (A), minimizando así los **valores atípicos**.
+Se eligieron estos valores de N porque no se dispone un **debugger** y todo el proceso de debug se realiza mediante prueba y error, con los simbolos observados en el display, por lo tanto tomar estos valores simplifica el análisis ya que si N = 2, el promedio de 2 valores puede estar entre 0 y 15 (F), mientras que si N toma valores como 10 o más, el promedio se acerca al valor medio (8), y en la práctica esto se cumple, mostrando valores entre 4 y 10 (A), minimizando así los **valores atípicos**.
 
 ![Prototipo3](./docs/Prototipo3.jpg)
 
@@ -87,11 +87,14 @@ Se eligieron estos valores de N porque no se dispone un **debugger** y todo el p
 
 
 ## Referencias
+- [FreeRTOS Web](https://www.freertos.org/index.html)
 - [PlatformIO](https://platformio.org) 
 - [ESP32 IDF Blink LED](https://techoverflow.net/2020/04/09/platformio-esp-idf-esp32-blink-example/)
 - [FreeRTOS TaskCreate](https://www.freertos.org/a00125.html)
 - [FreeRTOS QueueCreate](https://www.freertos.org/a00116.html)
 - [FreeRTOS QueueSend](https://www.freertos.org/a00117.html)
+- [FreeRTOS Stack Usage](https://www.freertos.org/Stacks-and-stack-overflow-checking.html)
+- [FreeRTOS uxTaskGetStackHighWaterMark](https://www.freertos.org/uxTaskGetStackHighWaterMark.html)
 - [ESP32 Establish Serial Connection](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/establish-serial-connection.html)
 
 ### Autor: Federico Coronati (Ketsy)
