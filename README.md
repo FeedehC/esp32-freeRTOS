@@ -88,6 +88,7 @@ Se eligieron estos valores de N porque no se dispone un **debugger** y todo el p
 
 ## Referencias
 - [FreeRTOS Web](https://www.freertos.org/index.html)
+- [Videos Youtube DigiKey](https://www.youtube.com/watch?v=F321087yYy4&list=PLEBQazB0HUyQ4hAPU1cJED6t3DU0h34bz)
 - [PlatformIO](https://platformio.org) 
 - [ESP32 IDF Blink LED](https://techoverflow.net/2020/04/09/platformio-esp-idf-esp32-blink-example/)
 - [FreeRTOS TaskCreate](https://www.freertos.org/a00125.html)
